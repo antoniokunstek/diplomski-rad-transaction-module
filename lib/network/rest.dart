@@ -32,16 +32,11 @@ Future<bool> addTransaction(TransactionFormModel model, String? jwtToken) async 
     );
 
   if(res.statusCode == HttpStatus.OK.status) {
-      Response res2 = Response.fromJson(jsonDecode(res.body));
-      if(res2.successful) {
-        return true;
-      } else {
-        throw TransactionException(message: 'Failed to create transaction');
-      }
+    return true;
     } else {
-      throw TransactionException(message: 'Network exception');
+      throw TransactionException(message: 'Failed to create transaction');
     }
-}
+  }
 
 Future<List<Transaction>> getAllTransactions(String? jwtToken, String? accountId) async {
   http.Response res = await http.get(Uri.parse('$httpUrl/api/v1/transactions/all?accountId=$accountId'),
